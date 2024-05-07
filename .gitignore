@@ -7,3 +7,6 @@ notebooks/.ipynb_checkpoints
 
 build/
 hayd1621.egg-info/
+
+*.pyc
+hayd1621/__pycache__/
