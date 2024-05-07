@@ -54,6 +54,7 @@ coverage.xml
 
 # Jupyter Notebook
 .ipynb_checkpoints
+notebooks/*\:Zone.Identifier
 
 # Environment variables
 .env
