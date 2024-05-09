@@ -12,9 +12,9 @@ def loading_model():
     return model
 
 def input_process(pict):
-    pict.resize((254, 254))
+    pict.resize((224, 224))
     pict = img_to_array(pict)
-    if pict.shape[2] == 3:
+    if pict.shape == (224, 224, 3):
         pass
     else:
         pict = tile(pict, [1, 1, 3])
