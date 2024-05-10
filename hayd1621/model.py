@@ -1,3 +1,4 @@
+import os
 import numpy as np
 import pandas as pd
 from tensorflow.keras.preprocessing.image import img_to_array
@@ -7,7 +8,19 @@ from tensorflow import expand_dims
 from tensorflow.keras.applications.resnet_v2 import preprocess_input
 
 def loading_model():
-    path = "model/2024_05_10_resnet50v2_model.h5"
+    def get_single_file_path(directory):
+        # Get all entries in the directory
+        entries = os.listdir(directory)
+        # Filter to include only files
+        files = [file for file in entries if os.path.isfile(os.path.join(directory, file))]
+        files =[file for file in files if not (file.endswith(".gitignore") or file.endswith(".Identifier"))]
+        print(files)
+        # Assert that there is exactly one file
+        assert len(files) == 1, f"Expected exactly one file in the directory, but found {len(files)}"
+        # Get the full path of the only file
+        return os.path.join(directory, files[0])
+
+    path =get_single_file_path("model/")
     model = load_model(path)
     return model
 
