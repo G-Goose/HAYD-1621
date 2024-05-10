@@ -5,9 +5,8 @@ FROM armswdev/tensorflow-arm-neoverse:r23.08-tf-2.13.0-eigen
 
 WORKDIR /prod
 
-
 COPY requirements.txt requirements.txt
-RUN ls -la
+
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY hayd1621 hayd1621
