@@ -9,4 +9,7 @@ clean:
 	@rm -Rf */__pycache__
 	@rm -Rf */*.pyc
 
+run_api:
+  uvicorn api.fast:app --reload
+
 all: install clean
