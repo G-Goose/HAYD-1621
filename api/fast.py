@@ -1,16 +1,16 @@
 from fastapi import FastAPI, UploadFile, File
-from fastapi.middleware.cors import CORSMiddleware
-from starlette.responses import Response
-from hayd1621.model import input_process, pred # changed
+from hayd1621.model import loading_model, input_process, pred # changed
 import tensorflow as tf
 from PIL import Image
 
 
 import numpy as np
-import cv2
 import io
 
 app = FastAPI()
+
+app.state.model = loading_model()
+
 
 # # Allow all requests (optional, good for development purposes)
 # app.add_middleware(
@@ -38,7 +38,7 @@ async def receive_image(img: UploadFile):
 
     ### Predicting the emotion
     class_names = ['angry', 'disgusted', 'fearful', 'happy', 'neutral', 'sad', 'surprised']
-    predicted_emotion = pred(processed_face)
+    predicted_emotion = pred(preproc_pict = processed_face, model = app.state.model)
     output_list = np.round(predicted_emotion, 2)*100
     output = dict(zip(class_names, output_list.flatten().tolist()))
 
