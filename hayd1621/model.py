@@ -7,7 +7,7 @@ from tensorflow import expand_dims
 from tensorflow.keras.applications.resnet_v2 import preprocess_input
 
 def loading_model():
-    path = "notebooks/2024_05_09_resnet50v2_model.keras"
+    path = "model/2024_05_10_resnet50v2_model.h5"
     model = load_model(path)
     return model
 
@@ -24,8 +24,7 @@ def input_process(pict):
     preproc_pict = preprocess_input(pict)
     return preproc_pict
 
-def pred(preproc_pict):
-    model = loading_model()
+def pred(preproc_pict, model):
     y_pred = model.predict(preproc_pict)
     return y_pred # check the output format
 

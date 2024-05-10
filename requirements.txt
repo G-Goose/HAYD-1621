@@ -1,5 +1,9 @@
 numpy
 pandas
-tensorflow==2.14.0
-fastapi
+#tensorflow==2.10.0
+fastapi==0.109.0
 uvicorn
+typing_extensions==4.8.0
+pytz
+ultralytics
+pillow
