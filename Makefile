@@ -10,7 +10,7 @@ clean:
 	@rm -Rf */*.pyc
 
 run_api:
-  uvicorn api.fast:app --reload
+	uvicorn api.fast:app --reload
 
 run_loading_model:
 	python -c 'from hayd1621.model import run_loading_model; loading_model()'
