@@ -5,8 +5,7 @@ WORKDIR /prod
 
 
 COPY requirements.txt requirements.txt
-RUN ls -la
-RUN pip install -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 
 COPY hayd1621 hayd1621
