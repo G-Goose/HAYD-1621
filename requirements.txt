@@ -5,5 +5,5 @@ fastapi==0.109.0
 uvicorn
 typing_extensions==4.8.0
 pytz
-ultralytics
 pillow
+python-multipart
