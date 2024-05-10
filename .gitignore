@@ -59,6 +59,7 @@ notebooks/*\:Zone.Identifier
 
 # Environment variables
 .env
+.env.yaml
 .venv
 env/
 venv/
