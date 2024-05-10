@@ -21,7 +21,7 @@ app = FastAPI()
 #     allow_headers=["*"],  # Allows all headers
 # )
 
-@app.get("/hello")
+@app.get("/")
 def index():
     return {"status": "ok"}
 
@@ -37,7 +37,12 @@ async def receive_image(img: UploadFile):
     print('* * * processing completed * * *')
 
     ### Predicting the emotion
-    # predicted_emotion = pred(processed_face)
+    class_names = ['angry', 'disgusted', 'fearful', 'happy', 'neutral', 'sad', 'surprised']
+    predicted_emotion = pred(processed_face)
+    output_list = np.round(predicted_emotion, 2)*100
+    output = dict(zip(class_names, output_list.flatten().tolist()))
+
 
     ### Returning the predicted emotion
-    # return {'emotion': predicted_emotion}
+    print(output)
+    return output

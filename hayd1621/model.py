@@ -7,13 +7,15 @@ from tensorflow import expand_dims
 from tensorflow.keras.applications.resnet_v2 import preprocess_input
 
 def loading_model():
-    path = "hayd1621/2024_05_18_resnet50v2_model.keras"
+    path = "notebooks/2024_05_09_resnet50v2_model.keras"
     model = load_model(path)
     return model
 
 def input_process(pict):
-    pict.resize((224, 224))
+    pict = pict.resize((224, 224))
+    print('* * * pict resized * * * ')
     pict = img_to_array(pict)
+    print(pict.shape)
     if pict.shape == (224, 224, 3):
         pass
     else:
