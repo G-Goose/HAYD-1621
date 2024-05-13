@@ -42,7 +42,9 @@ async def receive_image(img: UploadFile):
     output_list = np.round(predicted_emotion, 2)*100
     output = dict(zip(class_names, output_list.flatten().tolist()))
 
+    sorted_dict_desc = {k: v for k, v in sorted(output.items(), key=lambda item: item[1], reverse=True)}
+
 
     ### Returning the predicted emotion
-    print(output)
-    return output
+    print(sorted_dict_desc)
+    return dict(list(sorted_dict_desc.items())[:2])
