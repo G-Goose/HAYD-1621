@@ -1,11 +1,13 @@
 import os
 import numpy as np
 import pandas as pd
-from tensorflow.keras.preprocessing.image import img_to_array
-from tensorflow.keras.models import load_model
+from keras.utils import img_to_array
+from keras.models import load_model
 from tensorflow import tile
 from tensorflow import expand_dims
 from tensorflow.keras.applications.resnet_v2 import preprocess_input
+from itertools import islice
+from PIL import Image
 
 def loading_model():
     def get_single_file_path(directory):
@@ -25,6 +27,7 @@ def loading_model():
     return model
 
 def input_process(pict):
+    pict = Image.open(pict)
     pict = pict.resize((224, 224))
     print('* * * pict resized * * * ')
     pict = img_to_array(pict)
@@ -38,14 +41,28 @@ def input_process(pict):
     return preproc_pict
 
 def pred(preproc_pict, model):
-    y_pred = model.predict(preproc_pict)
-    return y_pred # check the output format
+    ### Predicting the emotion
+    predicted_emotions = model.predict(preproc_pict)
+    vals_list = np.round(predicted_emotions, 2)*100
 
-# model = loading_model()
-#    X_processed = input_process(X_pred)
-#    y_pred = model.predict(X_processed)
-# def evaluate():
-#    return 0.99
+    return vals_list
+
+def output_api(vals_list):
+    ### Creating output dictionary
+    class_names = ['angry', 'disgusted', 'fearful', 'happy', 'neutral', 'sad', 'surprised']
+    vals_dict = dict(zip(class_names, vals_list.flatten().tolist()))
+
+    sorted_dict_desc = {k: v for k, v in sorted(vals_dict.items(), key=lambda item: item[1], reverse=True)}
+    first_value = next(iter(sorted_dict_desc.values()))
+
+    if first_value >= 75:
+        output_dict = dict(islice(sorted_dict_desc.items(), 1))
+    else:
+        output_dict = dict(islice(sorted_dict_desc.items(), 2))
+    return output_dict
+
+def output_bq(vals_list):
+    return np.argmax(np.array(vals_list))
 
 if __name__ == '__main__':
     loading_model()
