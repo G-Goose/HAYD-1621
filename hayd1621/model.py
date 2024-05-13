@@ -1,12 +1,13 @@
 import os
 import numpy as np
 import pandas as pd
-from tensorflow.keras.preprocessing.image import img_to_array
-from tensorflow.keras.models import load_model
+from keras.utils import img_to_array
+from keras.models import load_model
 from tensorflow import tile
 from tensorflow import expand_dims
 from tensorflow.keras.applications.resnet_v2 import preprocess_input
 from itertools import islice
+from PIL import Image
 
 def loading_model():
     def get_single_file_path(directory):
@@ -26,6 +27,7 @@ def loading_model():
     return model
 
 def input_process(pict):
+    pict = Image.open(pict)
     pict = pict.resize((224, 224))
     print('* * * pict resized * * * ')
     pict = img_to_array(pict)

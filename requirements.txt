@@ -7,3 +7,4 @@ typing_extensions==4.8.0
 pytz
 pillow
 python-multipart
+google-cloud-bigquery
