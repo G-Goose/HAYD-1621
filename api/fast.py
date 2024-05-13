@@ -2,7 +2,7 @@ from fastapi import FastAPI, UploadFile, File
 from hayd1621.model import loading_model, input_process, pred # changed
 import tensorflow as tf
 from PIL import Image
-
+import logging
 
 import numpy as np
 import io
@@ -29,11 +29,13 @@ def index():
 async def receive_image(img: UploadFile):
     ### Receiving and processing the image
     # contents = await img.read()
-    request_object_content = await img.read()
-    img = Image.open(io.BytesIO(request_object_content))
+    # print(img_dict)
+    # img = img_dict['file']
+    #request_object_content = await img.read()
+    #img = Image.open(img.file)
     # img = tf.keras.preprocessing.image.img_to_array(contents)
     print('* * * before-processing completed * * *')
-    processed_face = input_process(img)
+    processed_face = input_process(img.file)
     print('* * * processing completed * * *')
 
     ### Predicting the emotion
@@ -44,5 +46,6 @@ async def receive_image(img: UploadFile):
 
 
     ### Returning the predicted emotion
-    print(output)
+    print(predicted_emotion)
+    #print(output)
     return output
