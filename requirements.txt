@@ -8,3 +8,4 @@ pytz
 pillow
 python-multipart
 google-cloud-bigquery
+protobuf==3.20.1

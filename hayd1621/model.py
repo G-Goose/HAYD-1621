@@ -62,7 +62,4 @@ def output_api(vals_list):
     return output_dict
 
 def output_bq(vals_list):
-    return np.argmax(np.array(vals_list))
-
-if __name__ == '__main__':
-    loading_model()
+    return {'mood': float(np.argmax(np.array(vals_list)))}
