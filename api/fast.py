@@ -24,3 +24,8 @@ async def mood_percent(img: UploadFile):
 def save_to_bq(val):
     result = bq.update_or_insert_value(new_value=val)
     return {"response": result}
+
+@app.get('/fetch_mood_board')
+def fetch_mood_board():
+    result = bq.fetch_bigquery_table_as_dict()
+    return {"response": result}

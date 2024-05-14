@@ -27,12 +27,16 @@ def create_bigquery_dataset_table():
     table = bigquery.Table(table_id, schema=schema)
     client.create_table(table, exists_ok=True)
 
+    return "Table created!"
+
 def update_or_insert_value(new_value, project_id=project_name, dataset_id=dataset_name, table_id=table_name):
     table_ref = client.dataset(dataset_id).table(table_id)
     table = client.get_table(table_ref)
 
     # Get today's date in the right timezone, usually UTC for BigQuery
-    today = datetime.now(pytz.utc).date()
+    today = datetime.now(pytz.utc).date().strftime('%Y-%m-%d')
+    print(today)
+    print(type(today))
 
     # Construct the SQL to check for an existing row with today's date
     query = f"""
@@ -63,3 +67,25 @@ def update_or_insert_value(new_value, project_id=project_name, dataset_id=datase
     update_job.result()  # Wait for the job to complete
 
     return "Update successful" if results else "Insert successful"
+
+def fetch_bigquery_table_as_dict( project_id=project_name, dataset_id=dataset_name, table_id=table_name):
+    # Set up BigQuery client
+
+    # Construct query using environment variables
+    query = f"""
+        SELECT `date`, `value`
+        FROM `{project_id}.{dataset_id}.{table_id}`
+    """
+
+    # Execute the query and collect the results
+    query_job = client.query(query)
+    results = query_job.result()
+
+    # Convert the results to a dictionary with date as key and value as value
+    data_dict = {row['date']: row['value'] for row in results}
+
+    return data_dict
+
+# print(create_bigquery_dataset_table())
+# print(update_or_insert_value(6))
+# print(fetch_bigquery_table_as_dict())
