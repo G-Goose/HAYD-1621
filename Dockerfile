@@ -1,7 +1,7 @@
 
-# FROM tensorflow/tensorflow:2.10.0
+FROM tensorflow/tensorflow:2.10.0
 # below is for M2 only
-FROM armswdev/tensorflow-arm-neoverse:r23.08-tf-2.13.0-eigen
+# FROM armswdev/tensorflow-arm-neoverse:r23.08-tf-2.13.0-eigen
 
 WORKDIR /prod
 
@@ -13,6 +13,7 @@ COPY hayd1621 hayd1621
 COPY setup.py setup.py
 COPY api api
 COPY model model
+COPY bq bq
 #RUN pip install .
 
 COPY Makefile Makefile
