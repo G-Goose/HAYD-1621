@@ -4,7 +4,7 @@ The backend repository of How Are You Doing (hayd-1621) supports the emotion det
 ## Setup Instructions
 1. Clone the repository:
 
-> git@github.com:G-Goose/HAYD-1621.git
+> git clone git@github.com:G-Goose/HAYD-1621.git
 
 2. Install dependencies:
 
@@ -13,6 +13,8 @@ The backend repository of How Are You Doing (hayd-1621) supports the emotion det
 3. Run the application:
 
 > make run_api
+
+See make file for options to dockerize and deploy the backend to Google Cloud.
 
 3. Set up environment variables for Google Big Query access.
 
